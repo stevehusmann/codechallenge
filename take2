@@ -1,0 +1,137 @@
+const findSum = function(array) {
+  // your code here - don't forget to return a number!
+  let sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    sum += array[i];
+  }
+  return sum;
+};
+
+const findFrequency = function(array) {
+  // your code here - don't forget to return an object!
+  const uniqueStrings = [];
+  const uniqueStringsTally = [];
+  //the for loop sorts through the given array and pushes each unique element into uniqueStrings
+  //the number of times that string occurs is stored in the corresponding index in uniqueStringsTally
+  for (let i = 0; i < array.length; i++) {
+    if (uniqueStrings.includes(array[i])) {
+      const repeatStringIndex = uniqueStrings.indexOf(array[i]);
+      uniqueStringsTally[repeatStringIndex] += 1;
+    } else {
+      uniqueStrings.push(array[i]);
+      uniqueStringsTally.push(1);
+    };
+  }
+  const mostOccur = Math.max(...uniqueStringsTally);
+  const leastOccur = Math.min(...uniqueStringsTally);
+  //I don't know what the ... is for, but apparently it was the only way to get the Math.max and Math.min operators to work on an array.
+  const freq = {
+    most : '',
+    least : ''
+  }
+  //this for loop populates the object freq with the strings that occur the most and least 
+  for (let i = 0; i < uniqueStrings.length; i++) {
+    if (uniqueStringsTally[i] === mostOccur) {
+      freq['most'] = uniqueStrings[i];
+    };
+    if (uniqueStringsTally[i] === leastOccur) {
+      freq['least'] = uniqueStrings[i];
+    };
+  }
+return freq;
+};
+
+console.log(findFrequency(['a', 'a', 'b', 'b', 'c', 'd', 'd', 'd']));
+console.log(findFrequency(['a', 'banana', 'a', 'd', 'd', 'd', 'd', 'b', 'b', 'c', 'c']));
+
+
+const isPalindrome = function(str) {
+  // your code here - don't forget to return a boolean!
+  str = str.toLowerCase();
+  let palSoFar = true;
+  for (let i = 0; i < ((str.length/2) + 1); i++) {
+    if (str[i] != str[str.length - i - 1]){
+      palSoFar = false;
+    }
+  }
+  return palSoFar;
+};
+
+
+const largestPair = function(array) {
+  let currentLargestPair = 0;
+  for (let i = 0; i < array.length; i++) { 
+    const currentPair = array[i] * array[i + 1];
+    if (currentPair > currentLargestPair) {
+      currentLargestPair = currentPair;
+    };
+  }
+  return currentLargestPair;
+};
+
+const removeParenth = function(str) {
+  const newString = [];
+  let parenthOpen = false;
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === '(') {
+      parenthOpen = true;
+    };
+    if (str[i] === ')') {
+      parenthOpen = false;
+      i++;
+    };
+    if (!parenthOpen) {
+      newString.push(str[i]);
+    };
+  }
+  return newString.join('');
+};
+
+const scoreScrabble = function(str) {
+  let score = 0;  
+  for (let i = 0; i < str.length; i++) {
+    switch (str[i]) {  
+      case 'a':
+      case 'e':
+      case 'i':
+      case 'o':
+      case 'u':
+      case 'l':
+      case 'n':
+      case 'r':
+      case 's':
+      case 't':
+        score += 1;
+        break;
+      case 'd':
+      case 'g':
+        score += 2;
+        break;
+      case 'b':
+      case 'c':
+      case 'm':
+      case 'p':
+        score += 3;
+        break;
+      case 'f':
+      case 'h':
+      case 'v':
+      case 'w':
+      case 'y':
+        score += 4;
+        break;
+      case 'k':
+        score += 5;
+        break;
+      case 'j':
+      case 'x':
+        score += 8;
+        break;
+      case 'q':
+      case 'z':
+        score += 10;
+        break;   
+    }
+  }
+  return score;
+};
